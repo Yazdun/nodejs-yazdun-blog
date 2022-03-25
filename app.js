@@ -13,6 +13,9 @@ const app = express()
 const connectDB = require('./db/connect')
 const { authUser } = require('./middleware/authentication')
 
+// ADMIN ROUTES
+const admin_auth_router = require('./routes/admin/auth.route')
+
 // ERROR HANDLERS
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
@@ -31,7 +34,8 @@ app.use(express.json())
 app.use(helmet())
 app.use(xss())
 
-// ROUTES GO HERE ...
+// ROUTES
+app.use('/api/v1/admin/authentication', admin_auth_router)
 
 // ERROR HANDLER
 app.use(notFoundMiddleware)
