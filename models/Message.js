@@ -19,6 +19,11 @@ const MessageSchema = new mongoose.Schema({
     type: String,
     required: [true, 'message is required'],
   },
+  additionalDetails: String,
+  isRead: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = mongoose.model('Message', MessageSchema)
