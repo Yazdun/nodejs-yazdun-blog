@@ -49,7 +49,28 @@ const getSinglePost = async (req, res) => {
 
 // get all posts
 const getAllPosts = async (req, res) => {
-  //  get all posts ...
+  const posts = await Post.find().sort('createdAt')
+  posts.reverse()
+  res.status(StatusCodes.OK).json({ posts })
+}
+
+// post visibility
+const updatePostVisibility = async (req, res) => {
+  const {
+    params: { id: postId },
+    query: { status },
+  } = req
+
+  const post = await Post.findOneAndUpdate(
+    { _id: postId },
+    { isHidden: status ? status : false },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+  if (!post) throw new NotFoundError(`this post doesn't exist`)
+  res.status(StatusCodes.OK).json({ data: post.isHidden })
 }
 
 module.exports = {
@@ -58,4 +79,5 @@ module.exports = {
   deletePost,
   getAllPosts,
   getSinglePost,
+  updatePostVisibility,
 }
