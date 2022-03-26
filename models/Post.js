@@ -32,7 +32,7 @@ const PostSchema = new mongoose.Schema(
     keywords: {
       type: [String],
     },
-    isHidden: {
+    isDraft: {
       type: Boolean,
       default: false,
     },

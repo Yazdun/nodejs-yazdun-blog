@@ -63,14 +63,14 @@ const updatePostVisibility = async (req, res) => {
 
   const post = await Post.findOneAndUpdate(
     { _id: postId },
-    { isHidden: status ? status : false },
+    { isDraft: status ? status : false },
     {
       new: true,
       runValidators: true,
     },
   )
   if (!post) throw new NotFoundError(`this post doesn't exist`)
-  res.status(StatusCodes.OK).json({ data: post.isHidden })
+  res.status(StatusCodes.OK).json({ data: post.isDraft })
 }
 
 module.exports = {
