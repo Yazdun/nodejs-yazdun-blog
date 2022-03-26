@@ -26,7 +26,14 @@ const PostSchema = new mongoose.Schema(
     },
     category: {
       required: [true, 'category is required'],
-      enum: ['personal', 'frontend', 'backend', 'fullstack', 'blockchain'],
+      enum: [
+        'personal',
+        'frontend',
+        'backend',
+        'fullstack',
+        'blockchain',
+        '3D modeling',
+      ],
       type: String,
     },
     keywords: {
