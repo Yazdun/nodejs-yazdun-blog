@@ -49,9 +49,9 @@ const getSinglePost = async (req, res) => {
 
 // get all posts
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find().sort('createdAt')
-  posts.reverse()
-  res.status(StatusCodes.OK).json({ posts })
+  const data = await Post.find().sort('createdAt')
+  data.reverse()
+  res.status(StatusCodes.OK).json({ data })
 }
 
 // post visibility
