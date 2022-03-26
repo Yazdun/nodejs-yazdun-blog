@@ -8,10 +8,11 @@ const PostSchema = new mongoose.Schema(
       minlength: [3, 'title must be at least 3 characters'],
       maxlength: [50, 'title must be less than 50 characters'],
     },
-    shortTitle: {
+    subtitle: {
       type: String,
-      required: [true, 'title is required'],
-      maxlength: [50, 'title must be less than 50 characters'],
+      required: [true, 'subtitle is required'],
+      minlength: [3, 'subtitle must be at least 3 characters'],
+      maxlength: [50, 'subtitle must be less than 50 characters'],
     },
     description: {
       type: String,
@@ -24,11 +25,16 @@ const PostSchema = new mongoose.Schema(
       minlength: [3, 'describtion must be at least 3 characters'],
     },
     category: {
-      enum: ['personal', 'frontend', 'backend', 'blockchain'],
+      required: [true, 'category is required'],
+      enum: ['personal', 'frontend', 'backend', 'fullstack', 'blockchain'],
       type: String,
     },
-    tags: {
+    keywords: {
       type: [String],
+    },
+    isHidden: {
+      type: Boolean,
+      default: false,
     },
     image: String,
     twitterUrl: String,

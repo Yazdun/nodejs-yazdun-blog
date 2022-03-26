@@ -15,6 +15,7 @@ const { authUser } = require('./middleware/authentication')
 
 // ADMIN ROUTES
 const admin_auth_router = require('./routes/admin/auth.route')
+const admin_posts_router = require('./routes/admin/posts.route')
 
 // ERROR HANDLERS
 const notFoundMiddleware = require('./middleware/not-found')
@@ -36,6 +37,7 @@ app.use(xss())
 
 // ROUTES
 app.use('/api/v1/admin/authentication', admin_auth_router)
+app.use('/api/v1/admin/posts', authUser, admin_posts_router)
 
 // ERROR HANDLER
 app.use(notFoundMiddleware)
