@@ -2,10 +2,10 @@ const { Message } = require('../../models')
 const { StatusCodes } = require('http-status-codes')
 
 const getAllMessages = async (req, res) => {
-  const data = await Message.find().sort('createdAt')
-  data.reverse()
+  const messages = await Message.find().sort('createdAt')
+  messages.reverse()
   await Message.updateMany({}, { $set: { isRead: true } })
-  res.status(StatusCodes.OK).json({ data })
+  res.status(StatusCodes.OK).json({ messages })
 }
 
 const deleteMessage = async (req, res) => {
@@ -13,15 +13,15 @@ const deleteMessage = async (req, res) => {
     params: { id: messageId },
   } = req
 
-  const data = await Message.findOneAndRemove({ _id: messageId })
-  if (!data) throw new NotFoundError(`this message doesn't exist`)
+  const message = await Message.findOneAndRemove({ _id: messageId })
+  if (!message) throw new NotFoundError(`this message doesn't exist`)
 
   res.status(StatusCodes.OK).send()
 }
 
 const countUnreadMessages = async (req, res) => {
-  const data = await Message.countDocuments({ isRead: false })
-  res.status(StatusCodes.OK).json({ data })
+  const unreadMessages = await Message.countDocuments({ isRead: false })
+  res.status(StatusCodes.OK).json({ unreadMessages })
 }
 
 module.exports = {

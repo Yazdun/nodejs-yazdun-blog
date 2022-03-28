@@ -4,8 +4,8 @@ const { NotFoundError } = require('../../errors')
 
 // create new post
 const createPost = async (req, res) => {
-  const data = await Post.create(req.body)
-  res.status(StatusCodes.CREATED).json({ data })
+  const post = await Post.create(req.body)
+  res.status(StatusCodes.CREATED).json({ post })
 }
 
 // update a post
@@ -14,13 +14,13 @@ const updatePost = async (req, res) => {
     params: { id: postId },
   } = req
 
-  const data = await Post.findOneAndUpdate({ _id: postId }, req.body, {
+  const post = await Post.findOneAndUpdate({ _id: postId }, req.body, {
     new: true,
     runValidators: true,
   })
 
-  if (!data) throw new NotFoundError(`this post doesn't exist`)
-  res.status(StatusCodes.OK).json({ data })
+  if (!post) throw new NotFoundError(`this post doesn't exist`)
+  res.status(StatusCodes.OK).json({ post })
 }
 
 // delete a post
@@ -29,8 +29,8 @@ const deletePost = async (req, res) => {
     params: { id: postId },
   } = req
 
-  const data = await Post.findOneAndRemove({ _id: postId })
-  if (!data) throw new NotFoundError(`this post doesn't exist`)
+  const post = await Post.findOneAndRemove({ _id: postId })
+  if (!post) throw new NotFoundError(`this post doesn't exist`)
 
   res.status(StatusCodes.OK).send()
 }
@@ -41,17 +41,17 @@ const getSinglePost = async (req, res) => {
     params: { id: postId },
   } = req
 
-  const data = await Post.findOne({ _id: postId })
-  if (!data) throw new NotFoundError(`this post doesn't exist`)
+  const post = await Post.findOne({ _id: postId })
+  if (!post) throw new NotFoundError(`this post doesn't exist`)
 
-  res.status(StatusCodes.OK).json({ data })
+  res.status(StatusCodes.OK).json({ post })
 }
 
 // get all posts
 const getAllPosts = async (req, res) => {
-  const data = await Post.find().sort('createdAt')
-  data.reverse()
-  res.status(StatusCodes.OK).json({ data })
+  const posts = await Post.find().sort('createdAt')
+  posts.reverse()
+  res.status(StatusCodes.OK).json({ posts })
 }
 
 // post visibility
