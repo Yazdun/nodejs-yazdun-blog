@@ -49,7 +49,12 @@ const getSinglePost = async (req, res) => {
 
 // get all posts
 const getAllPosts = async (req, res) => {
-  const posts = await Post.find().sort('createdAt')
+  const {
+    query: { isDraft },
+  } = req
+  const posts = await Post.find({ isDraft: isDraft ? isDraft : false }).sort(
+    'createdAt',
+  )
   posts.reverse()
   res.status(StatusCodes.OK).json({ posts })
 }
@@ -73,6 +78,10 @@ const updatePostVisibility = async (req, res) => {
   res.status(StatusCodes.OK).json({ data: post.isDraft })
 }
 
+const countDraftedPosts = async (req, res) => {
+  // CODE GOES HERE
+}
+
 module.exports = {
   createPost,
   updatePost,
@@ -80,4 +89,5 @@ module.exports = {
   getAllPosts,
   getSinglePost,
   updatePostVisibility,
+  countDraftedPosts,
 }
