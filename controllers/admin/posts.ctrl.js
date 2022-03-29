@@ -78,10 +78,6 @@ const updatePostVisibility = async (req, res) => {
   res.status(StatusCodes.OK).json({ data: post.isDraft })
 }
 
-const countDraftedPosts = async (req, res) => {
-  // CODE GOES HERE
-}
-
 module.exports = {
   createPost,
   updatePost,
@@ -89,5 +85,4 @@ module.exports = {
   getAllPosts,
   getSinglePost,
   updatePostVisibility,
-  countDraftedPosts,
 }

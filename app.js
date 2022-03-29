@@ -17,6 +17,7 @@ const { authUser } = require('./middleware/authentication')
 const admin_auth_router = require('./routes/admin/auth.route')
 const admin_posts_router = require('./routes/admin/posts.route')
 const admin_messages_router = require('./routes/admin/message.route')
+const admin_status_router = require('./routes/admin/status.route')
 
 // PUBLIC ROUTES
 const public_message_router = require('./routes/public/message.route')
@@ -43,6 +44,7 @@ app.use(xss())
 app.use('/api/v1/admin/authentication', admin_auth_router)
 app.use('/api/v1/admin/posts', authUser, admin_posts_router)
 app.use('/api/v1/admin/messages', authUser, admin_messages_router)
+app.use('/api/v1/admin/status', authUser, admin_status_router)
 
 app.use('/api/v1/public/message', public_message_router)
 
