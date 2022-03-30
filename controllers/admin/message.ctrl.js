@@ -19,13 +19,7 @@ const deleteMessage = async (req, res) => {
   res.status(StatusCodes.OK).send()
 }
 
-const countUnreadMessages = async (req, res) => {
-  const unreadMessages = await Message.countDocuments({ isRead: false })
-  res.status(StatusCodes.OK).json({ unreadMessages })
-}
-
 module.exports = {
   getAllMessages,
   deleteMessage,
-  countUnreadMessages,
 }
