@@ -20,7 +20,6 @@ const MessageSchema = new mongoose.Schema(
       type: String,
       required: [true, 'your message is required'],
     },
-    additionalDetails: String,
     isRead: {
       type: Boolean,
       default: false,
