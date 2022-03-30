@@ -8,8 +8,8 @@ const {
 } = require('../../controllers/public/posts.ctrl')
 
 router.get('/all', getAllPosts)
-router.get('/random', getRandomPosts)
-router.get('/:id', getSinglePost)
+router.get('/random/:id', getRandomPosts)
+router.get('/find/:id', getSinglePost)
 router.get('/latest', getLatestPosts)
 
 module.exports = router

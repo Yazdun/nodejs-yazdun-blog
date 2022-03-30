@@ -1,19 +1,67 @@
 const { StatusCodes } = require('http-status-codes')
+const { Post } = require('../../models')
+const { shuffle } = require('../../utils')
 
 const getAllPosts = async (req, res) => {
-  // get all posts
+  const posts = await Post.find({ isDraft: false }, [
+    'title',
+    'image',
+    'description',
+    'updatedAt',
+  ]).sort('updatedAt')
+  posts.reverse()
+  res.status(StatusCodes.OK).json({ posts })
 }
 
 const getRandomPosts = async (req, res) => {
-  // get random posts
+  const {
+    params: { id: postId },
+    query: { count },
+  } = req
+  const data = await Post.find({ isDraft: false }, [
+    'title',
+    'image',
+    'description',
+    'updatedAt',
+  ])
+
+  const posts = data
+    .filter(post => {
+      return post._id.toString() !== postId
+    })
+    .slice(0, count ? count : 2)
+
+  shuffle(posts)
+
+  res.status(StatusCodes.OK).json({ posts })
 }
 
 const getSinglePost = async (req, res) => {
-  // get single post
+  const {
+    params: { id: postId },
+  } = req
+
+  const post = await Post.findOne({ _id: postId, isDraft: false })
+  if (!post) throw new NotFoundError(`this post doesn't exist`)
+
+  res.status(StatusCodes.OK).json({ post })
 }
 
 const getLatestPosts = async (req, res) => {
-  // get latest posts
+  const {
+    query: { count },
+  } = req
+
+  const data = await Post.find({ isDraft: false }, [
+    'title',
+    'image',
+    'description',
+    'updatedAt',
+  ]).sort('updatedAt')
+
+  const posts = data.slice(0, count ? count : 2)
+
+  res.status(StatusCodes.OK).json({ posts })
 }
 
 module.exports = {
