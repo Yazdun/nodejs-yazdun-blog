@@ -21,6 +21,7 @@ const admin_status_router = require('./routes/admin/status.route')
 
 // PUBLIC ROUTES
 const public_message_router = require('./routes/public/message.route')
+const public_posts_router = require('./routes/public/posts.route')
 
 // ERROR HANDLERS
 const notFoundMiddleware = require('./middleware/not-found')
@@ -47,6 +48,7 @@ app.use('/api/v1/admin/messages', authUser, admin_messages_router)
 app.use('/api/v1/admin/status', authUser, admin_status_router)
 
 app.use('/api/v1/public/message', public_message_router)
+app.use('/api/v1/public/posts', public_posts_router)
 
 // ERROR HANDLER
 app.use(notFoundMiddleware)
