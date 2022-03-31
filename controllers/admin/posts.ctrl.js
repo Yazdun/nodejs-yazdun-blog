@@ -1,10 +1,13 @@
 const { Post } = require('../../models')
 const { StatusCodes } = require('http-status-codes')
 const { NotFoundError } = require('../../errors')
+const calcReadTime = require('reading-time')
 
 // create new post
 const createPost = async (req, res) => {
-  const post = await Post.create(req.body)
+  const { content } = req.body
+  const readingTime = calcReadTime(content).text
+  const post = await Post.create({ ...req.body, readingTime })
   res.status(StatusCodes.CREATED).json({ post })
 }
 
@@ -14,10 +17,17 @@ const updatePost = async (req, res) => {
     params: { id: postId },
   } = req
 
-  const post = await Post.findOneAndUpdate({ _id: postId }, req.body, {
-    new: true,
-    runValidators: true,
-  })
+  const { content } = req.body
+  const readingTime = calcReadTime(content).text
+
+  const post = await Post.findOneAndUpdate(
+    { _id: postId },
+    { ...req.body, readingTime },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
 
   if (!post) throw new NotFoundError(`this post doesn't exist`)
   res.status(StatusCodes.OK).json({ post })

@@ -27,6 +27,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: [true, 'image is required'],
     },
+    readingTime: String,
     twitter: String,
     codepen: String,
     codesandbox: String,
