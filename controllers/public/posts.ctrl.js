@@ -8,8 +8,9 @@ const getAllPosts = async (req, res) => {
     'image',
     'description',
     'updatedAt',
+    'createdAt',
     'readingTime',
-  ]).sort('updatedAt')
+  ]).sort('createdAt')
   posts.reverse()
   res.status(StatusCodes.OK).json({ posts })
 }
@@ -23,7 +24,7 @@ const getRandomPosts = async (req, res) => {
     'title',
     'image',
     'description',
-    'updatedAt',
+    'createdAt',
     'readingTime',
   ])
 
@@ -58,7 +59,7 @@ const getLatestPosts = async (req, res) => {
     'title',
     'image',
     'description',
-    'updatedAt',
+    'createdAt',
     'readingTime',
   ]).sort('createdAt')
   data.reverse()

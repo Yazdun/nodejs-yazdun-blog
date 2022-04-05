@@ -31,6 +31,7 @@ const PostSchema = new mongoose.Schema(
     twitter: String,
     codepen: String,
     codesandbox: String,
+    github: String,
     youtube: String,
   },
   { timestamps: true },
