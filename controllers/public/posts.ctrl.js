@@ -61,7 +61,7 @@ const getSinglePost = async (req, res) => {
     })
     .slice(0, 2)
 
-  res.status(StatusCodes.OK).json({ post, suggestions })
+  res.status(StatusCodes.OK).json({ post: { ...post._doc, suggestions } })
 }
 
 const getLatestPosts = async (req, res) => {
