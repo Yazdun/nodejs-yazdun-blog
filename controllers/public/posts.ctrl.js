@@ -47,7 +47,21 @@ const getSinglePost = async (req, res) => {
   const post = await Post.findOne({ _id: postId, isDraft: false })
   if (!post) throw new NotFoundError(`this post doesn't exist`)
 
-  res.status(StatusCodes.OK).json({ post })
+  const data = await Post.find({ isDraft: false }, [
+    'title',
+    'image',
+    'description',
+    'createdAt',
+    'readingTime',
+  ])
+
+  const suggestions = data
+    .filter(post => {
+      return post._id.toString() !== postId
+    })
+    .slice(0, 2)
+
+  res.status(StatusCodes.OK).json({ post, suggestions })
 }
 
 const getLatestPosts = async (req, res) => {
