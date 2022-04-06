@@ -55,6 +55,8 @@ const getSinglePost = async (req, res) => {
     'readingTime',
   ])
 
+  shuffle(data)
+
   const suggestions = data
     .filter(post => {
       return post._id.toString() !== postId
